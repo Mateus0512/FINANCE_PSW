@@ -1,0 +1,41 @@
+{% load static %}
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+
+<div class="card">
+    
+    <table class="table table-striped table-dark">
+        <tr>
+            <th>Conta</th>
+            <th>Categoria</th>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>valor</th>
+            
+        </tr>
+        {% for valor in valores %}
+            <tr class="linha">
+                <td width="10%">{{valor.conta}}</td>
+                <td>{{valor.categoria}}</td>
+                <td>{{valor.data}}</td>
+                <td>
+                {% if valor.tipo == 'S'%}
+                    <img width="10%" src="{% static 'perfil/img/saidas.png' %}">
+                {% else %}
+                    <img width="10%" src="{% static 'perfil/img/entradas.png' %}">
+                {% endif %}
+                
+                </td>
+                <td>R$ {{valor.valor}}</td>
+                
+            </tr>
+        {% endfor %}
+
+    </table>
+    
+
+</div>
+</html>
