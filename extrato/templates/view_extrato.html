@@ -5,9 +5,12 @@
     <link href="{% static 'perfil/css/home.css' %}" rel="stylesheet">
     <link href="{% static 'perfil/css/gerenciar.css' %}" rel="stylesheet">
     <link href="{% static 'extrato/css/view_extrato.css' %}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+
+    
 {% endblock %}
-
 {% block 'body' %}
     <br>
     <br>
@@ -55,14 +58,17 @@
                 <a href="{% url 'view_extrato' %}" class="botao-secundario">Limpar Filtros</a>
             </div>
             <div class="col-md-2">
-                <a href="{% url 'exportar_pdf' %}" class="botao-secundario">Exportar extrato</a>
+                <button id="exportar" class="botao-secundario">Exportar extrato</button>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'dashboard' %}" class="botao-secundario">Dashboard</a>
             </div>
         </div>
         <br>
         <br>
 
 
-        <div class="card">
+        <div class="card" id="card">
             
                 <table>
                     <tr>
@@ -75,14 +81,14 @@
                     </tr>
                     {% for valor in valores %}
                         <tr class="linha">
-                            <td width="10%">{{valor.conta}}</td>
+                            <td width="5%">{{valor.conta}}</td>
                             <td>{{valor.categoria}}</td>
                             <td>{{valor.data}}</td>
                             <td>
                             {% if valor.tipo == 'S'%}
-                                <img width="10%" src="{% static 'perfil/img/saidas.png' %}">
+                                <img width="5%" src="{% static 'perfil/img/saidas.png' %}">
                             {% else %}
-                                <img width="10%" src="{% static 'perfil/img/entradas.png' %}">
+                                <img width="5%" src="{% static 'perfil/img/entradas.png' %}">
                             {% endif %}
                             
                             </td>
@@ -95,4 +101,6 @@
             
         </div>
     </div>
+    <script src="{% static 'extrato/js/view_extrato.js' %}" defer></script>
+    </script>
 {% endblock %}

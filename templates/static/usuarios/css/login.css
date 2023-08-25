@@ -1,0 +1,29 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.centralizar{
+    display: flex;
+    justify-content: space-around;
+}
+.md{
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+label{
+    color: white !important;
+}
+
+.text-login{
+    color: white;
+    text-align: center;
+}
+.white {
+    color: white;
+}
+.formulario{
+    margin-bottom: 10px;
+}

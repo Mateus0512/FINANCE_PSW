@@ -9,15 +9,17 @@ from datetime import datetime
 from django.template.loader import render_to_string
 import os
 from django.conf import settings
-from weasyprint import HTML
+#from weasyprint import HTML
 from io import BytesIO
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required
 def novo_valor(request):
     if request.method == 'GET':
-        categorias = Categoria.objects.all()
-        contas = Conta.objects.all()
+        categorias = Categoria.objects.filter(usuario_id=request.user.id)
+        contas = Conta.objects.filter(usuario_id=request.user.id)
         return render(request,'novo_valor.html',{'categorias':categorias,
                                                  'contas':contas})
 
@@ -29,7 +31,7 @@ def novo_valor(request):
         conta = request.POST.get('conta')
         tipo = request.POST.get('tipo')
 
-        valores = Valores(valor=valor,categoria_id=categoria,descricao=descricao,data=data,conta_id=conta,tipo=tipo)
+        valores = Valores(valor=valor,categoria_id=categoria,descricao=descricao,data=data,conta_id=conta,tipo=tipo,usuario_id=request.user.id)
         valores.save()
 
         conta = Conta.objects.get(id=conta)
@@ -43,11 +45,11 @@ def novo_valor(request):
         messages.add_message(request,constants.SUCCESS,'Entrada/Saida Cadastrada com sucesso.')
         return redirect(reverse('novo_valor'))
 
-
+@login_required
 def view_extrato(request):
-    categorias = Categoria.objects.all()
-    contas = Conta.objects.all()
-    valores = Valores.objects.filter(data__month=datetime.now().month)
+    categorias = Categoria.objects.filter(usuario_id=request.user.id)
+    contas = Conta.objects.filter(usuario_id=request.user.id)
+    valores = Valores.objects.filter(usuario_id=request.user.id).filter(data__month=datetime.now().month)
     conta_get = request.GET.get('conta')
     categoria_get = request.GET.get('categoria')
 
@@ -62,10 +64,11 @@ def view_extrato(request):
 
 
 def exportar_pdf(request):
-    valores = Valores.objects.filter(data__month=datetime.now().month)
-    path_template = os.path.join(settings.BASE_DIR,'templates/partials/extrato.html')
-    template_render = render_to_string(path_template,{'valores':valores})
-    path_output = BytesIO()
-    HTML(string=template_render).write_pdf(path_output)
-    path_output.seek(0)
-    return FileResponse(path_output,filename='extrato.pdf')
+    #valores = Valores.objects.filter(data__month=datetime.now().month)
+    #path_template = os.path.join(settings.BASE_DIR,'templates/partials/extrato.html')
+    #template_render = render_to_string(path_template,{'valores':valores})
+    #path_output = BytesIO()
+    #HTML(string=template_render).write_pdf(path_output)
+    #path_output.seek(0)
+    #return FileResponse(path_output,filename='extrato.pdf')
+    pass

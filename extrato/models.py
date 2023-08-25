@@ -1,5 +1,6 @@
 from django.db import models
 from perfil.models import Categoria,Conta
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Valores(models.Model):
@@ -13,6 +14,7 @@ class Valores(models.Model):
     data = models.DateField()
     conta = models.ForeignKey(Conta,on_delete=models.DO_NOTHING)
     tipo = models.CharField(max_length=1,choices=choice_tipo)
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.descricao

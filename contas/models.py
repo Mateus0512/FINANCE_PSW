@@ -1,5 +1,6 @@
 from django.db import models
 from perfil.models import Categoria
+from django.contrib.auth.models import User
 
 # Create your models here.
 class ContaPagar(models.Model):
@@ -8,6 +9,7 @@ class ContaPagar(models.Model):
     descricao = models.TextField()
     valor = models.FloatField()
     dia_pagamento = models.IntegerField()
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
     
     def __str__(self):
         return self.titulo
@@ -15,6 +17,7 @@ class ContaPagar(models.Model):
 class ContaPaga(models.Model):
     conta = models.ForeignKey(ContaPagar, on_delete=models.DO_NOTHING)
     data_pagamento = models.DateField()
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.conta.titulo

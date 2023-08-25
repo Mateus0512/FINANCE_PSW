@@ -59,7 +59,7 @@
                         
                         {% for conta in contas %}
                             <div class="lista-conta">
-                                <span>{{conta.apelido}}</span>
+                                <span class="metade"><img width="10%" src="{{conta.icone.url}}" alt="">{{conta.apelido}}</span>
                                 <span class="total-conta">R$ {{conta.valor}}</span>
                             </div>
                             <br>
@@ -98,7 +98,7 @@
                     <span class="fonte-destaque">Total livre</span>
                     <span class="font-light negativo">R$ {{total}}</span>
                     <hr class="hr-borda">
-                    <a href="{% url 'dashboard' %}" class="botao-principal">Gerenciar dados mensais</a>
+                    <a href="{% url 'view_extrato' %}" class="botao-principal">Gerenciar dados mensais</a>
                 </div>
             </div>
 

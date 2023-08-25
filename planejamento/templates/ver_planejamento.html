@@ -18,16 +18,27 @@
             </div>
             <div class="col-md">
                <div class="card">
-                <p> Total </p>
+                <p> Total de Entradas </p>
                 <div>
-                <span style="float: left !important;">R$ {{total}}</span>
-                <span style="float: right !important;">R$ {{valor_total_planejamento}}</span>
+                <span style="float: left !important;">R$ {% if total_entrada %} {{total_entrada}} {% else %} 0 {% endif %}</span>
+                <span style="float: right !important;">R$ {% if valor_total_planejamento %} {{valor_total_planejamento}} {% else %} 0 {% endif %}</span>
                 </div>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: {{calcula_porcentagem_total}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{calcula_porcentagem_total_entrada}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <br>
                 <hr>
+                <p> Total de Saidas </p>
+                <div>
+                <span style="float: left !important;">R$ {% if total_saida %} {{total_saida}} {% else %} 0 {% endif %}</span>
+                <span style="float: right !important;">R$ {% if valor_total_planejamento %} {{valor_total_planejamento}} {% else %} 0 {% endif %}</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: {{calcula_porcentagem_total_saida}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <br>
+                <hr>
+                {% if categorias %}
                     {% for categoria in categorias %}
                         <p> {{categoria}} </p>
                         <div>
@@ -40,7 +51,7 @@
                         <br>
                         <hr>
                     {% endfor %}
-
+                {% endif %}
                 </div>
             </div>
             <div class="col-md-2 text-center">

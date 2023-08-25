@@ -23,14 +23,15 @@
                     <th>Ação</th>
                 </tr>
 
-                {% for categoria in categorias %}
-                    <tr class="linha">
-                        <td>{{categoria}}</td>
-                        <td><input type="text" class="form-control" value="{{categoria.valor_planejamento}}"></td>
-                        <td><button style="width: 100%;" onclick="update_valor_planejamento_categoria({{categoria.id}});" class="botao-secundario">Salvar</button></td>         
-                    </tr>
-                {% endfor %}
-                
+                {% if categorias %}
+                    {% for categoria in categorias %}
+                        <tr class="linha">
+                            <td>{{categoria}}</td>
+                            <td><input type="text" class="form-control" id="valores{{categoria.id}}" value="{{categoria.valor_planejamento}}"></td>
+                            <td><button style="width: 100%;" onclick="update_valor_planejamento_categoria({{categoria.id}});" class="botao-secundario">Salvar</button></td>         
+                        </tr>
+                    {% endfor %}
+                {% endif %}
 
             </table>
         

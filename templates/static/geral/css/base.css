@@ -11,3 +11,7 @@ body{
     --differential-color: #E96363;
 
 }
+
+.between{
+    justify-content: space-between;
+}

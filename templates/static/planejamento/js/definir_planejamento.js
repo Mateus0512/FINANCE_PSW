@@ -1,7 +1,7 @@
 update_valor_planejamento_categoria = (id) =>{
-    inputs = document.getElementsByTagName('input');
-    console.log(inputs[id-1].value);
-    valor = inputs[id-1].value;
+    input = document.getElementById('valores'+id);
+    
+    valor = input.value;
 
     fetch('/planejamento/update_valor_categoria/'+id,{
         method:'POST',
@@ -12,6 +12,6 @@ update_valor_planejamento_categoria = (id) =>{
     }).then(function(result){
         return result.json();
     }).then(function(data){
-        return alert(data);
+        return alert(data.status)
     })
 }

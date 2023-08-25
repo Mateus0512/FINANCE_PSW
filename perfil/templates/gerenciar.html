@@ -4,6 +4,7 @@
 
     <link href="{% static 'perfil/css/home.css' %}" rel="stylesheet">
     <link href="{% static 'perfil/css/gerenciar.css' %}" rel="stylesheet">
+    <link href="{% static 'extrato/css/view_extrato.css' %}" rel="stylesheet">
 
 {% endblock %}
 
@@ -22,24 +23,32 @@
                 <hr>
 
                 <div class="contas">
+                    {% if contas %}
+                        {% for conta in contas %}
+                            <div class="card lista-conta" >
+                                <span><img width="10%" src="{{conta.icone.url}}">&nbsp&nbsp{{conta.apelido}}</span>
+                                
+                                <span class="positivo total-conta fonte-destaque">R$ {{conta.valor}}&nbsp&nbsp&nbsp <a href="{% url 'deletar_banco' conta.id %}"><img width="12%"  src="{% static 'perfil/img/exit.png' %}"></a></span>
+                                
+                            </div>
+                            <br>
+                            
+                        {% endfor %}
+                {% else %}
+                    <div class="lista-contas-main">
+                        <span><img width="10%" src="">&nbsp&nbsp</span>
 
-                    {% for conta in contas %}
-                        <div class="lista-contas-main">
-                            <span><img width="10%" src="{{conta.icone.url}}">&nbsp&nbsp{{conta.apelido}}</span>
-
-                            <span class="total-conta positivo">R$ {{conta.valor}}&nbsp&nbsp&nbsp <a href="{% url 'deletar_banco' conta.id %}"><img width="10%"  src="{% static 'perfil/img/exit.png' %}"></a></span>
-                        </div>
-                        <br>
-                        
-                    {% endfor %}
-                    
+                        <span class="total-conta positivo">R$ 0&nbsp&nbsp&nbsp <a href="#"><img width="10%"  src=""></a></span>
+                    </div>
+                    <br>
+                {% endif %}
                   
 
                 </div>
 
                 <hr>
                 <span class="fonte-destaque">Total:</span>
-                <span class="positivo total-conta font-destaque">R$ {{total_conta}}</span>
+                <span class="positivo total-conta fonte-destaque">R$ {% if total_conta %} {{total_conta}} {% else %} 0 {% endif %}</span>
             </div>
 
             <div class="col-md-2"></div>
@@ -102,17 +111,33 @@
             <div class="col-md-5">
                 <span class="fonte-destaque">Suas categoria</span>
                 <br>
-                <div class="contas">
-
+                <div>
+                {% if categorias %}
+                <table >
+                    <tr class="linha">
+                        <th>Categoria</th>
+                        <th>Essencial</th>
+                    </tr>
                     {% for categoria in categorias %}
-                        <div class="lista-contas-main">
+                        <tr class="linha tabela">
                             
-                            <span>{{categoria}}</span>
-                            <span class="total-conta"><a href="{% url 'update_categoria' categoria.id %}"><img width="10%" src="{% if categoria.essencial %} {% static 'perfil/img/check.png' %} {% else %} {% static 'perfil/img/exit.png' %} {% endif %}"></a></span>
-                        </div>
-                        <br>
+                            <td >{{categoria}}</td>
+                            <td><span class="total-conta"><a href="{% url 'update_categoria' categoria.id %}"><img width="10%" src="{% if categoria.essencial %} {% static 'perfil/img/check.png' %} {% else %} {% static 'perfil/img/exit.png' %} {% endif %}"></a></span></td>
+                        
+                        
+                        </tr>
+                        
                      {% endfor %}
-                    
+                </table>
+            </div>
+                {% else %}
+                <div class="lista-contas-main">
+                            
+                    <span></span>
+                    <span class="total-conta"><a href="#"><img width="10%" src=""></a></span>
+                </div>
+                <br>
+                {% endif %}    
                 </div>
             </div>
         </div>

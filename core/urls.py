@@ -25,4 +25,5 @@ urlpatterns = [
     path('extrato/', include('extrato.urls')),
     path('planejamento/', include('planejamento.urls')),
     path('contas/',include('contas.urls')),
+    path('',include('usuarios.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
