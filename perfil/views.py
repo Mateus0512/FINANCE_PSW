@@ -11,7 +11,7 @@ from datetime import datetime
 from contas.models import ContaPagar,ContaPaga
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-@login_required
+@login_required(login_url='/')
 def home(request):
     DIA_ATUAL = datetime.now().day
     MES_ATUAL = datetime.now().month
@@ -38,7 +38,7 @@ def home(request):
                                        'contas_proximas_vencimento':contas_proximas_vencimento,
                                        'total':total})
 
-@login_required
+@login_required(login_url='/')
 def gerenciar(request):
     contas = Conta.objects.filter(usuario_id=request.user.id)
     
@@ -48,7 +48,7 @@ def gerenciar(request):
 
     return render(request,'gerenciar.html',{'contas':contas,'total_conta':total_conta,'categorias':categorias,'bancos':bancos})
 
-@login_required
+@login_required(login_url='/')
 def cadastrar_banco(request):
     apelido = request.POST.get('apelido')
     banco = request.POST.get('banco')
@@ -65,14 +65,14 @@ def cadastrar_banco(request):
     messages.add_message(request,constants.SUCCESS,'Conta cadastrada com sucesso')
     return redirect(reverse('gerenciar'))
 
-@login_required
+@login_required(login_url='/')
 def deletar_banco(request,id):
     conta = Conta.objects.get(id=id)
     conta.delete()
     messages.add_message(request,constants.SUCCESS,'Banco deletado com sucesso')
     return redirect(reverse('gerenciar'))
 
-@login_required
+@login_required(login_url='/')
 def cadastrar_categoria(request):
     nome = request.POST.get('categoria')
     essencial = bool(request.POST.get('essencial'))
@@ -83,14 +83,14 @@ def cadastrar_categoria(request):
     return redirect(reverse('gerenciar'))
 
 
-@login_required
+@login_required(login_url='/')
 def update_categoria(request,id):
     categoria = Categoria.objects.get(id=id)
     categoria.essencial = not categoria.essencial 
     categoria.save()
     return redirect(reverse('gerenciar'))
 
-@login_required
+@login_required(login_url='/')
 def dashboard(request):
     dados = {}
     categorias =  Categoria.objects.filter(usuario_id=request.user.id)

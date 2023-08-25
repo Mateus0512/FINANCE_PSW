@@ -8,7 +8,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required
+@login_required(login_url='/')
 def definir_contas(request):
     if request.method == 'GET':
         categorias = Categoria.objects.filter(usuario_id=request.user.id)
@@ -25,7 +25,7 @@ def definir_contas(request):
         messages.add_message(request,constants.SUCCESS,'Conta cadastrada com sucesso!')
         return redirect(reverse('definir_contas'))
     
-@login_required    
+@login_required(login_url='/')  
 def ver_contas(request):
     MES_ATUAL = datetime.now().month
     DIA_ATUAL = datetime.now().day
@@ -47,7 +47,7 @@ def ver_contas(request):
                                              'total_restantes':total_restantes,
                                              'total_contas_pagas':total_contas_pagas})
 
-@login_required
+@login_required(login_url='/')
 def pagar_conta(request):
     id_conta = request.POST.get('id_conta')
     data_pagamento = request.POST.get('dia_do_pagamento')

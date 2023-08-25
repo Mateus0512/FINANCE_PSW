@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-@login_required
+@login_required(login_url='/')
 def novo_valor(request):
     if request.method == 'GET':
         categorias = Categoria.objects.filter(usuario_id=request.user.id)
@@ -45,7 +45,7 @@ def novo_valor(request):
         messages.add_message(request,constants.SUCCESS,'Entrada/Saida Cadastrada com sucesso.')
         return redirect(reverse('novo_valor'))
 
-@login_required
+@login_required(login_url='/')
 def view_extrato(request):
     categorias = Categoria.objects.filter(usuario_id=request.user.id)
     contas = Conta.objects.filter(usuario_id=request.user.id)

@@ -6,7 +6,7 @@ import json
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required
+@login_required(login_url='/')
 def definir_planejamento(request):
     categorias = Categoria.objects.filter(usuario_id=request.user.id)
     return render(request,'definir_planejamento.html',{'categorias':categorias})
@@ -19,7 +19,7 @@ def update_valor_categoria(request,id):
     categoria.save() 
     return JsonResponse({'status': 'Sucesso'})
 
-@login_required
+@login_required(login_url='/')
 def ver_planejamento(request):
     categorias =  Categoria.objects.filter(usuario_id=request.user.id)
     total_entrada = 0
